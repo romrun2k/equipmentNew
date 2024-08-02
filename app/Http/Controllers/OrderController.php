@@ -159,7 +159,7 @@ class OrderController extends Controller
 
     public function show(Request $request)
     {
-        // try {
+        try {
             $transaction = Transactions::whereCode($request->order)
                 ->select('id', 'other')
                 ->first();
@@ -175,12 +175,12 @@ class OrderController extends Controller
                 'other' => @$transaction->other
             ];
 
-        // } catch (\Exception $e) {
-        //     $response = [
-        //         'status' => false,
-        //         'data' => $e->getMessage()
-        //     ];
-        // }
+        } catch (\Exception $e) {
+            $response = [
+                'status' => false,
+                'data' => $e->getMessage()
+            ];
+        }
 
         return response()->json($response);
     }
